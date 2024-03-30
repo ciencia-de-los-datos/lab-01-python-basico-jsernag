@@ -11,7 +11,7 @@ Utilice el archivo `data.csv` para resolver las preguntas.
 
 
 """
-
+import csv
 
 def pregunta_01():
     """
@@ -19,9 +19,39 @@ def pregunta_01():
 
     Rta/
     214
-
     """
-    return
+
+    
+    # suma = 0
+
+    # with open("data.csv") as archivo_csv:
+    #     file = csv.reader(archivo_csv)
+        
+
+    #     for line in file:
+    #         lista = list(line)
+    #         lista2 = list(lista[0])
+    #         num = int(lista2[2])
+    #         suma += num
+
+    # print(lista)
+    # print(lista2)
+
+
+
+
+    # return suma
+    lista = []
+    with open("data.csv","r") as archivo_csv:
+        file = csv.reader(archivo_csv, delimiter="\t")
+        for line in file:
+            lista.append(line)
+
+    sumandos = [int(lista2[1]) for lista2 in lista[0:]]
+
+    return sum(sumandos)
+
+
 
 
 def pregunta_02():
@@ -39,7 +69,23 @@ def pregunta_02():
     ]
 
     """
-    return
+    lista = []
+    with open("data.csv","r") as archivo_csv:
+        file = csv.reader(archivo_csv, delimiter="\t")
+        for line in file:
+            lista.append(line)
+    
+    x = [y[0] for y in lista]
+    unicos = set(x)
+    listafinal = []
+    for i in unicos:
+        cant = x.count(i)
+        tupla = (i, cant)
+        listafinal.append(tupla)
+
+    listafinalordenada = sorted(listafinal)
+    return listafinalordenada
+
 
 
 def pregunta_03():
@@ -57,7 +103,39 @@ def pregunta_03():
     ]
 
     """
-    return
+    lista = []
+    with open("data.csv","r") as archivo_csv:
+        file = csv.reader(archivo_csv, delimiter="\t")
+        for line in file:
+            lista.append(line)
+
+    x = [y[0:2] for y in lista]
+    
+    a = []
+    b =[]
+    diccionario = {}
+
+    for i,j in x:
+        num = int(j)
+        a.append((i,num))
+
+    for key, value in a:
+
+        if key not in diccionario.keys():
+            diccionario[key] = 0
+
+        diccionario[key] += value
+
+    for key, value in diccionario.items():
+        tupla = (key, value)
+        b.append(tupla)
+
+    listafinal = sorted(b)
+
+    return listafinal
+
+
+
 
 
 def pregunta_04():
@@ -82,7 +160,26 @@ def pregunta_04():
     ]
 
     """
-    return
+    lista = []
+    with open("data.csv","r") as archivo_csv:
+        file = csv.reader(archivo_csv, delimiter="\t")
+        for line in file:
+            lista.append(line)
+
+    x = [y[2].split("-") for y in lista]
+    y = [z[1] for z in x]
+    z = set(y)
+    listafinal = []
+
+    for i in z:
+        cant = y.count(i)
+        tupla = (i, cant)
+        listafinal.append(tupla)
+
+    listafinal = sorted(listafinal)
+
+
+    return listafinal
 
 
 def pregunta_05():
@@ -100,7 +197,27 @@ def pregunta_05():
     ]
 
     """
-    return
+    lista = []
+    with open("data.csv","r") as archivo_csv:
+        file = csv.reader(archivo_csv, delimiter="\t")
+        for line in file:
+            lista.append(line)
+    
+    letters = [(x[0], int(x[1])) for x in lista]
+    listletter = set([x[0] for x in lista])
+    result = []
+
+    for i in listletter:
+        temp = list(filter(lambda x: x[0] == i, letters))
+    
+        result.append((i, max(temp)[1], min(temp)[1]))
+    
+
+    result.sort()
+
+    return result
+    
+                      
 
 
 def pregunta_06():
@@ -125,7 +242,43 @@ def pregunta_06():
     ]
 
     """
-    return
+    lista = []
+    with open("data.csv","r") as archivo_csv:
+        file = csv.reader(archivo_csv, delimiter="\t")
+        for line in file:
+            lista.append(line)
+    
+    col5 = [x[4].split(",") for x in lista]
+    unicos = []
+    for i in col5:
+        z = len(i)
+        for j in range(z):
+            v = i[j]
+            unicos.append((v[:3],int(v[4:])))
+
+    diccionario = {}
+
+    for key,value in unicos:
+        if key not in diccionario.keys():
+            diccionario[key] = []
+        diccionario[key].append(value)
+
+    lista_final =[]
+
+    for key in diccionario.keys():
+        tupla = (key, min(diccionario[key]), max(diccionario[key]))
+        lista_final.append(tupla)
+
+    lista_final.sort()
+
+    
+      
+    
+    
+
+    return lista_final
+    
+
 
 
 def pregunta_07():
@@ -149,8 +302,28 @@ def pregunta_07():
     ]
 
     """
-    return
+    lista = []
+    with open("data.csv","r") as archivo_csv:
+        file = csv.reader(archivo_csv, delimiter="\t")
+        for line in file:
+            lista.append(line)
+    lista2 =[(x[0],x[1]) for x in lista]
+    diccionario = {}
+    for value,key in lista2:
+        if key not in diccionario.keys():
+            diccionario[key] = []
+        diccionario[key].append(value)
 
+    lista_final =[]
+
+    for key,value in diccionario.items():
+        tupla = (int(key), (value))
+        lista_final.append(tupla)
+
+    lista_final.sort()
+
+
+    return lista_final
 
 def pregunta_08():
     """
@@ -174,7 +347,29 @@ def pregunta_08():
     ]
 
     """
-    return
+    lista = []
+    with open("data.csv","r") as archivo_csv:
+        file = csv.reader(archivo_csv, delimiter="\t")
+        for line in file:
+            lista.append(line)
+    lista2 =[(x[0],x[1]) for x in lista]
+    diccionario = {}
+    for value,key in lista2:
+        if key not in diccionario.keys():
+            diccionario[key] = []
+        diccionario[key].append(value)
+
+    lista_final =[]
+
+    for key,value in diccionario.items():
+        tupla = (int(key), sorted(list(set(value))))
+        lista_final.append(tupla)
+
+    lista_final.sort()
+
+
+    return lista_final
+    
 
 
 def pregunta_09():
@@ -197,7 +392,30 @@ def pregunta_09():
     }
 
     """
-    return
+    lista = []
+    with open("data.csv","r") as archivo_csv:
+        file = csv.reader(archivo_csv, delimiter="\t")
+        for line in file:
+            lista.append(line)
+    
+    col5 = [x[4].split(",") for x in lista]
+    unicos = []
+    for i in col5:
+        z = len(i)
+        for j in range(z):
+            v = i[j]
+            unicos.append(v[:3])
+
+    unicos.sort()
+
+    diccionario = {}
+
+    for key in unicos:
+        if key not in diccionario.keys():
+            diccionario[key] = 0
+        diccionario[key] += 1
+
+    return diccionario
 
 
 def pregunta_10():
@@ -218,10 +436,23 @@ def pregunta_10():
 
 
     """
-    return
+    lista = []
+    with open("data.csv","r") as archivo_csv:
+        file = csv.reader(archivo_csv, delimiter="\t")
+        for line in file:
+            lista.append(line)
+    
+    elementos = [(x[0],x[3].split(","),x[4].split(",")) for x in lista]
+    lista_final = []
+    for i in elementos:
+        tupla = (i[0], len(i[1]), len(i[2]))
+        lista_final.append(tupla)
+    return lista_final
+
 
 
 def pregunta_11():
+
     """
     Retorne un diccionario que contengan la suma de la columna 2 para cada letra de la
     columna 4, ordenadas alfabeticamente.
@@ -239,7 +470,32 @@ def pregunta_11():
 
 
     """
-    return
+    lista = []
+    with open("data.csv","r") as archivo_csv:
+        file = csv.reader(archivo_csv, delimiter="\t")
+        for line in file:
+            lista.append(line)
+    lista2 = []
+    elementos = [(x[3].split(","), int(x[1])) for x in lista]
+    for i in range(len(elementos)):
+        a = len(elementos[i][0])
+        b = elementos[i][1]
+
+        for j in range(a):
+            c = elementos[i][0][j]
+            lista2.append((c,b))
+
+    diccionario ={}
+    for key, value in sorted(lista2):
+        if key not in diccionario.keys():
+            diccionario[key] = 0
+        diccionario[key] += value
+
+    return diccionario
+
+
+   
+
 
 
 def pregunta_12():
@@ -257,4 +513,27 @@ def pregunta_12():
     }
 
     """
-    return
+    lista = []
+    with open("data.csv","r") as archivo_csv:
+        file = csv.reader(archivo_csv, delimiter="\t")
+        for line in file:
+            lista.append(line)
+    lista2 = []
+    elementos = [(x[0], x[4].split(",")) for x in lista]
+
+    for i in elementos:
+        long = len(i[1])
+        for j in range(long):
+            a = i[1][j]
+            lista2.append((i[0], (int(a[4:]))))
+
+    lista2.sort()
+    diccionario ={}
+    for key,value in lista2:
+        if key not in diccionario.keys():
+            diccionario[key] = 0
+        diccionario[key] += value
+
+
+    return diccionario
+
